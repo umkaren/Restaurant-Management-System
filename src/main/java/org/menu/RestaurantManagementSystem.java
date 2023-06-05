@@ -22,17 +22,36 @@ public class RestaurantManagementSystem {
         tableManager.addTable(table4);
         tableManager.addTable(table5);
 
+        // Creating object for InventoryService
         InventoryService inventoryService = new InventoryService();
 
         // Adding items to the inventory
-        inventoryService.addIngredient("potatoes", 100);
-        inventoryService.addIngredient("chicken tenders", 100);
-        inventoryService.addIngredient("bread slices", 200);
-        inventoryService.addIngredient("cheese", 100);
-        inventoryService.addIngredient("lettuce", 100);
+        inventoryService.addIngredient("Potatoes", 100);
+        inventoryService.addIngredient("Chicken tenders", 100);
+        inventoryService.addIngredient("Oil", 100);
+        inventoryService.addIngredient("Bread slices", 200);
+        inventoryService.addIngredient("Cheese", 100);
+        inventoryService.addIngredient("Lettuce", 100);
+        inventoryService.addIngredient("Cucumber", 100);
+        inventoryService.addIngredient("Ranch", 100);
+        inventoryService.addIngredient("Tomato", 100);
+        inventoryService.addIngredient("Water", 100);
+        inventoryService.addIngredient("Coke", 100);
 
         // Checking the inventory status
         inventoryService.checkInventoryStatus();
+
+        // Check ingredient quantity
+
+        inventoryService.checkIngredientQuantity("Tomato");
+        inventoryService.checkIngredientQuantity("Onion");
+
+        // Use ingredient
+        System.out.println("Order of fries is being prepared.");
+        inventoryService.checkIngredientQuantity("Potatoes");
+        inventoryService.useIngredient("Potatoes", 2);
+        inventoryService.checkIngredientQuantity("Potatoes");
+
         //menu
         public void List<> menu = new ArrayList<>();
         MenuItem item1 = new MenuItem("Chicken Tenders", "Handbreaded. Tender and juicy.", 10, 5); //takes 10 minutes
