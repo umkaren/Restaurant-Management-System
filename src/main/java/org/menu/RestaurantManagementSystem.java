@@ -34,14 +34,14 @@ public class RestaurantManagementSystem {
         // Checking the inventory status
         inventoryService.checkInventoryStatus();
         //menu
-        private static List<MenuItem> menu = new ArrayList<>();
+        public void List<> menu = new ArrayList<>();
         MenuItem item1 = new MenuItem("Chicken Tenders", "Handbreaded. Tender and juicy.", 10, 5); //takes 10 minutes
         MenuItem item2 = new MenuItem("House Salad", "Tasty. For the health nut.", 8, 7); //takes 8 minutes
         MenuItem item3 = new MenuItem("Chicken Tender Sandwich", "Smack yo mama good", 5, 6); // takes 5 minutes
 
-        MenuItem item4 = new MenuItem("Grilled Cheese", ""); //takes 5 minutes
+        MenuItem item4 = new MenuItem("Grilled Cheese", "Cheese and bread. What more could you want?", ); //takes 5 minutes
         MenuItem item5 = new MenuItem("Fries", 2); // takes 8 minutes
-        MenuItem item6 = new MenuItem("Bottle Water", 1); //  takes 1 minutes
+        MenuItem item6 = new MenuItem("Bottle Water", 1); //  takes 1 minute
         MenuItem item7 = new MenuItem("Soda", 2); //takes 1 minute
 
         menu.add(item1);
