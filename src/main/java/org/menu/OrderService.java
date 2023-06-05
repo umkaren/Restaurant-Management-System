@@ -13,7 +13,7 @@ public class OrderService {
     //Place new order
     public void placeOrder (Order order) {
         orders.add(order);
-        System.out.println("Order successfully placed. Order ID " + order.getOrderId());
+        System.out.println("Order successfully placed. Order ID " + order.getOrderID());
     }
 
     //Update order status
@@ -21,15 +21,15 @@ public class OrderService {
         Order order = getOrderById(orderId);
         if (order != null) {
             order.setStatus(status);
-            System.out.println("Order updated successfully. Order ID: " + orderId);
+            System.out.println("Order updated successfully. Order ID: " + orderID);
         } else {
-            System.out.println("Order not found. Order Id: " + orderId);
+            System.out.println("Order not found. Order Id: " + orderID);
         }
     }
 
     //Get order by ID
-    public Order getOrderById (int orderId) {
-        for
+    public Order getOrderById (int orderID) {
+        for (order.orderdID() == )
     }
 
 
