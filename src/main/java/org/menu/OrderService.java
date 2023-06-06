@@ -3,36 +3,60 @@ package org.menu;
 import java.util.ArrayList;
 import java.util.List;
 
+//Manages the orders
 public class OrderService {
+
+    //Method - returns order with by orderID orders
     private List<Order> orders;
 
+    //Constructor that initializes 'orders' list as an empty array
     public OrderService () {
-        this.orders = new ArrayList<>();
+        orders = new ArrayList<>();
     }
 
-    //Place new order
-    public void placeOrder (Order order) {
+    public void placeOrder(Order order) {
         orders.add(order);
-        System.out.println("Order successfully placed. Order ID " + order.getOrderID());
+        System.out.println("Order ID: " + order.getOrderID() + " placed.");
     }
 
-    //Update order status
-    public void updateOrderStatus (int orderId, String status) {
-        Order order = getOrderById(orderId);
+    public void updateOrderStatus(int orderID, String newOrderStatus) {
+        Order order = getOrderByID(orderID);
+
         if (order != null) {
-            order.setStatus(status);
-            System.out.println("Order updated successfully. Order ID: " + orderID);
+            order.setOrderStatus(newOrderStatus);
+            System.out.println("Order ID: " + orderID + " updated.");
         } else {
-            System.out.println("Order not found. Order Id: " + orderID);
+            System.out.println("Order ID " + orderID + " not found.");
         }
     }
+    public Order getOrderByID (int orderID) {
 
-    //Get order by ID
-    public Order getOrderById (int orderID) {
-        for (order.orderdID() == )
+        for (Order order : orders) {
+            if (order.getOrderID() == orderID) {
+                return order;
+            }
+        }
+        return null;
+    }
+    //Method - returns all orders
+    public List<Order> getAllOrders() {
+        return orders;
+    }
+
+    //Method to calculate items total price
+    public int calculateTotalPrice(Order order) {
+        Map<String, Integer> itemsOrdered = order.getItemsOrdered();
+        int totalPrice = 0;
+
+        for (Map.Entry<String, Integer> entry : itemsOrdered.entrySet()) {
+            String itemName = entry.getKey();
+            int quantity = entry.getValue();
+            double itemPrice = Order.getItemPrice(itemName);
+            totalPrice += itemPrice * quantity;
+        }
+        return totalPrice;
     }
 
 
-
-    //Get all orders
 }
+

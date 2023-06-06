@@ -35,6 +35,4 @@ public class Table {
         this.status = status;
     }
 
-
-
 }

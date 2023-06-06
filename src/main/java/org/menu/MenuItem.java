@@ -1,19 +1,22 @@
 package org.menu;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.Arrays;
 import java.util.List;
 
-
-public class MenuItem {
+class MenuItem {
     private String name;
     private String description;
-    private int prepTime;
-    private int price;
+    private String prepTime;
+    private double price;
     private List<String> ingredients;
+
+    public MenuItem(String name, String description, String prepTime, double price, List<String> ingredients) {
+        this.name = name;
+        this.description = description;
+        this.prepTime = prepTime;
+        this.price = price;
+        this.ingredients = ingredients;
+    }
 
     public String getName() {
         return name;
@@ -31,19 +34,19 @@ public class MenuItem {
         this.description = description;
     }
 
-    public int getPrepTime() {
+    public String getPrepTime() {
         return prepTime;
     }
 
-    public void setPrepTime(int prepTime) {
+    public void setPrepTime(String prepTime) {
         this.prepTime = prepTime;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -55,14 +58,35 @@ public class MenuItem {
         this.ingredients = ingredients;
     }
 
-    public MenuItem(String name, String description, int prepTime, int price) {
-        this.name = name;
-        this.description = description;
-        this.prepTime = prepTime;
-        this.price = price;
-        this.ingredients = new ArrayList<>();
-
+    // Utility method to convert MenuItem to a string with delimiters
+    public String toStringWithDelimiters() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(name).append("|");
+        sb.append(description).append("|");
+        sb.append(prepTime).append("|");
+        sb.append(price).append("|");
+        for (int i = 0; i < ingredients.size(); i++) {
+            sb.append(ingredients.get(i));
+            if (i < ingredients.size() - 1) {
+                sb.append(",");
+            }
+        }
+        return sb.toString();
     }
 
+    // Utility method to create MenuItem object from a string with delimiters
+    public static MenuItem fromStringWithDelimiters(String line) {
+        String[] parts = line.split("\\|");
+        if (parts.length != 5) {
+            throw new IllegalArgumentException("Invalid line format");
+        }
 
+        String name = parts[0];
+        String description = parts[1];
+        String prepTime = parts[2];
+        double price = Double.parseDouble(parts[3]);
+        List<String> ingredients = Arrays.asList(parts[4].split(","));
+
+        return new MenuItem(name, description, prepTime, price, ingredients);
+    }
 }

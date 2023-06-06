@@ -1,4 +1,4 @@
-package org.menu.;
+package org.menu;
 
 import java.io.*;
 import java.util.HashMap;
