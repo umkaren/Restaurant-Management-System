@@ -1,0 +1,11 @@
+Bread slices,1400
+Water,700
+Lettuce,700
+Oil,696
+Potatoes,694
+Ranch,700
+Coke,700
+Chicken tenders,695
+Cheese,700
+Tomato,700
+Cucumber,700
