@@ -22,8 +22,7 @@ public class RestaurantManagementSystem {
         tableManager.addTable(table4);
         tableManager.addTable(table5);
 
-        // Creating object for InventoryService
-        InventoryService inventoryService = new InventoryService();
+        InventoryService inventoryService = new InventoryService("C:\\CTAC\\Java Final Project\\Restaurant-Management-System\\src\\main\\java\\org\\menu");
 
         // Adding items to the inventory
         inventoryService.addIngredient("Potatoes", 100);
@@ -52,15 +51,23 @@ public class RestaurantManagementSystem {
         inventoryService.useIngredient("Potatoes", 2);
         inventoryService.checkIngredientQuantity("Potatoes");
 
+        // Use ingredient
+        System.out.println("Order of chicken tenders is being prepared.");
+        inventoryService.checkIngredientQuantity("Chicken tenders");
+        inventoryService.useIngredient("Chicken tenders", 5);
+        inventoryService.useIngredient("Oil", 2);
+
+        // Checking the inventory status
+        inventoryService.checkInventoryStatus();
         //menu
-        public void List<> menu = new ArrayList<>();
+        private static List<MenuItem> menu = new ArrayList<>();
         MenuItem item1 = new MenuItem("Chicken Tenders", "Handbreaded. Tender and juicy.", 10, 5); //takes 10 minutes
         MenuItem item2 = new MenuItem("House Salad", "Tasty. For the health nut.", 8, 7); //takes 8 minutes
         MenuItem item3 = new MenuItem("Chicken Tender Sandwich", "Smack yo mama good", 5, 6); // takes 5 minutes
 
-        MenuItem item4 = new MenuItem("Grilled Cheese", "Cheese and bread. What more could you want?", ); //takes 5 minutes
+        MenuItem item4 = new MenuItem("Grilled Cheese", ""); //takes 5 minutes
         MenuItem item5 = new MenuItem("Fries", 2); // takes 8 minutes
-        MenuItem item6 = new MenuItem("Bottle Water", 1); //  takes 1 minute
+        MenuItem item6 = new MenuItem("Bottle Water", 1); //  takes 1 minutes
         MenuItem item7 = new MenuItem("Soda", 2); //takes 1 minute
 
         menu.add(item1);
