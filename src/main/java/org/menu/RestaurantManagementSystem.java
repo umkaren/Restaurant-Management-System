@@ -3,6 +3,9 @@ package org.menu;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class RestaurantManagementSystem {
 
@@ -136,42 +139,42 @@ public class RestaurantManagementSystem {
 
                 TableManager tableManager = new TableManager();
 
-        // Add tables
-        Table table1 = new Table(1, 2, "Available");
-        Table table2 = new Table(2, 2, "Available");
-        Table table3 = new Table(3, 2, "Available");
-        Table table4 = new Table(4, 4, "Available");
-        Table table5 = new Table(5, 4, "Available");
+                // Add tables
+                Table table1 = new Table(1, 2, "Available");
+                Table table2 = new Table(2, 2, "Available");
+                Table table3 = new Table(3, 2, "Available");
+                Table table4 = new Table(4, 4, "Available");
+                Table table5 = new Table(5, 4, "Available");
 
-        tableManager.addTable(table1);
-        tableManager.addTable(table2);
-        tableManager.addTable(table3);
-        tableManager.addTable(table4);
-        tableManager.addTable(table5);
+                tableManager.addTable(table1);
+                tableManager.addTable(table2);
+                tableManager.addTable(table3);
+                tableManager.addTable(table4);
+                tableManager.addTable(table5);
 
 
                 InventoryService inventoryService = new InventoryService("/Users/minhsmair/IdeaProjects/Restaurant-Management-System/src/main/java/org/menu");
 
 
-        // Checking the inventory status
-        inventoryService.checkInventoryStatus();
+                // Checking the inventory status
+                inventoryService.checkInventoryStatus();
 
-        // Check ingredient quantity
+                // Check ingredient quantity
 
-        inventoryService.checkIngredientQuantity("Tomato");
-        inventoryService.checkIngredientQuantity("Onion");
+                inventoryService.checkIngredientQuantity("Tomato");
+                inventoryService.checkIngredientQuantity("Onion");
 
-        // Use ingredient
-        System.out.println("Order of fries is being prepared.");
-        inventoryService.checkIngredientQuantity("Potatoes");
-        inventoryService.useIngredient("Potatoes", 2);
-        inventoryService.checkIngredientQuantity("Potatoes");
+                // Use ingredient
+                System.out.println("Order of fries is being prepared.");
+                inventoryService.checkIngredientQuantity("Potatoes");
+                inventoryService.useIngredient("Potatoes", 2);
+                inventoryService.checkIngredientQuantity("Potatoes");
 
-        // Use ingredient
-        System.out.println("Order of chicken tenders is being prepared.");
-        inventoryService.checkIngredientQuantity("Chicken tenders");
-        inventoryService.useIngredient("Chicken tenders", 5);
-        inventoryService.useIngredient("Oil", 2);
+                // Use ingredient
+                System.out.println("Order of chicken tenders is being prepared.");
+                inventoryService.checkIngredientQuantity("Chicken tenders");
+                inventoryService.useIngredient("Chicken tenders", 5);
+                inventoryService.useIngredient("Oil", 2);
 
                 // Checking the inventory status
                 inventoryService.checkInventoryStatus();
