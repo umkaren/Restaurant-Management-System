@@ -1,62 +1,41 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package org.menu;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
 
 public class MenuService {
-    Scanner scanner = new Scanner(System.in);
-    private static final String MENU_FILE = "menu.txt";
-    private static final Scanner scanner = new Scanner(System.in);
-    private static List<MenuItem> menuItems = new ArrayList<>();
+    private static List<MenuItem> menuItems = new ArrayList();
+    Scanner scanner;
+    private String MENU_FILE;
 
-    public static void main(String[] args) {
-        menuItems = loadMenu();
-
-        while (true) {
-            System.out.println("Menu Management");
-            System.out.println("1. Add Item");
-            System.out.println("2. Remove Item");
-            System.out.println("3. Edit Item");
-            System.out.println("4. Display Menu");
-            System.out.println("5. Exit");
-            System.out.print("Enter your choice: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline character
-
-            switch (choice) {
-                case 1:
-                    addItem();
-                    saveMenu();
-                    break;
-                case 2:
-                    removeItem();
-                    saveMenu();
-                    break;
-                case 3:
-                    editItem();
-                    saveMenu();
-                    break;
-                case 4:
-                    displayMenu();
-                    break;
-                case 5:
-                    System.out.println("Exiting...");
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        }
+    public MenuService() {
+        this.scanner = new Scanner(System.in);
+        this.MENU_FILE = "/Users/minhsmair/TestingRestaurant/TestingRestaurant/src/main/java/example/menu.txt";
     }
 
-    static List<MenuItem> loadMenu() {
+    public List<MenuItem> loadMenu() {
         try {
-            File file = new File(MENU_FILE);
+            File file = new File(this.MENU_FILE);
             if (file.exists()) {
                 BufferedReader reader = new BufferedReader(new FileReader(file));
+                menuItems.clear();
 
-                List<MenuItem> menuItems = new ArrayList<>();
                 String line;
-                while ((line = reader.readLine()) != null) {
+                while((line = reader.readLine()) != null) {
                     MenuItem menuItem = MenuItem.fromStringWithDelimiters(line);
                     menuItems.add(menuItem);
                 }
@@ -64,57 +43,58 @@ public class MenuService {
                 reader.close();
                 return menuItems;
             }
-        } catch (IOException e) {
-            System.out.println("Error loading menu from file: " + e.getMessage());
+        } catch (IOException var5) {
+            System.out.println("Error loading menu from file: " + var5.getMessage());
         }
-        return new ArrayList<>();
+
+        return new ArrayList();
     }
 
-    static void saveMenu() {
+    public void saveMenu() {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(MENU_FILE));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.MENU_FILE));
 
-            for (MenuItem menuItem : menuItems) {
-                String line = menuItem.toStringWithDelimiters();
+            for(int i = 0; i < menuItems.size(); ++i) {
+                MenuItem menuItem = (MenuItem)menuItems.get(i);
+                String line = i + 1 + ". " + menuItem.toStringWithDelimiters();
                 writer.write(line);
                 writer.newLine();
             }
 
             writer.close();
-        } catch (IOException e) {
-            System.out.println("Error saving menu to file: " + e.getMessage());
+        } catch (IOException var5) {
+            System.out.println("Error saving menu to file: " + var5.getMessage());
         }
+
     }
 
-    static void addItem() {
+    public void addItem() {
         System.out.println("Enter the item details:");
         System.out.print("Name: ");
-        String name = scanner.nextLine();
+        String name = this.scanner.nextLine();
         System.out.print("Description: ");
-        String description = scanner.nextLine();
+        String description = this.scanner.nextLine();
         System.out.print("Preparation Time: ");
-        String prepTime = scanner.nextLine();
+        int prepTime = Integer.parseInt(this.scanner.nextLine());
         System.out.print("Price: ");
-        double price = scanner.nextDouble();
-        scanner.nextLine(); // Consume newline character
+        double price = this.scanner.nextDouble();
+        this.scanner.nextLine();
         System.out.print("Ingredients (comma-separated): ");
-        String ingredientsString = scanner.nextLine();
+        String ingredientsString = this.scanner.nextLine();
         List<String> ingredients = Arrays.asList(ingredientsString.split(","));
-
         MenuItem menuItem = new MenuItem(name, description, prepTime, price, ingredients);
         menuItems.add(menuItem);
-
         System.out.println("Menu item added successfully!");
     }
 
-    static void removeItem() {
+    public void removeItem() {
         System.out.print("Enter the name of the item to remove: ");
-        String itemName = scanner.nextLine();
-
+        String itemName = this.scanner.nextLine();
         boolean found = false;
         Iterator<MenuItem> iterator = menuItems.iterator();
-        while (iterator.hasNext()) {
-            MenuItem menuItem = iterator.next();
+
+        while(iterator.hasNext()) {
+            MenuItem menuItem = (MenuItem)iterator.next();
             if (menuItem.getName().equalsIgnoreCase(itemName)) {
                 iterator.remove();
                 found = true;
@@ -127,44 +107,55 @@ public class MenuService {
         } else {
             System.out.println("Item not found in the menu.");
         }
+
     }
 
-    static void editItem() {
+    public void editItem() {
         System.out.print("Enter the name of the item to edit: ");
-        String itemName = scanner.nextLine();
-
+        String itemName = this.scanner.nextLine();
         boolean found = false;
-        for (MenuItem menuItem : menuItems) {
+        Iterator var3 = menuItems.iterator();
+
+        while(var3.hasNext()) {
+            MenuItem menuItem = (MenuItem)var3.next();
             if (menuItem.getName().equalsIgnoreCase(itemName)) {
                 System.out.println("Enter new values (leave blank to keep the current value):");
-
                 System.out.print("New name (" + menuItem.getName() + "): ");
-                String name = scanner.nextLine();
+                String name = this.scanner.nextLine();
                 if (!name.isEmpty()) {
                     menuItem.setName(name);
                 }
 
                 System.out.print("New description (" + menuItem.getDescription() + "): ");
-                String description = scanner.nextLine();
+                String description = this.scanner.nextLine();
                 if (!description.isEmpty()) {
                     menuItem.setDescription(description);
                 }
 
                 System.out.print("New preparation time (" + menuItem.getPrepTime() + "): ");
-                String prepTime = scanner.nextLine();
-                if (!prepTime.isEmpty()) {
-                    menuItem.setPrepTime(prepTime);
+                String prepTimeStr = this.scanner.nextLine();
+                if (!prepTimeStr.isEmpty()) {
+                    try {
+                        int prepTime = Integer.parseInt(prepTimeStr);
+                        menuItem.setPrepTime(prepTime);
+                    } catch (NumberFormatException var12) {
+                        System.out.println("Invalid input for preparation time. Keeping the current value.");
+                    }
                 }
 
                 System.out.print("New price (" + menuItem.getPrice() + "): ");
-                String priceStr = scanner.nextLine();
+                String priceStr = this.scanner.nextLine();
                 if (!priceStr.isEmpty()) {
-                    double price = Double.parseDouble(priceStr);
-                    menuItem.setPrice(price);
+                    try {
+                        double price = Double.parseDouble(priceStr);
+                        menuItem.setPrice(price);
+                    } catch (NumberFormatException var11) {
+                        System.out.println("Invalid input for price. Keeping the current value.");
+                    }
                 }
 
                 System.out.print("New ingredients (" + String.join(", ", menuItem.getIngredients()) + "): ");
-                String ingredientsString = scanner.nextLine();
+                String ingredientsString = this.scanner.nextLine();
                 if (!ingredientsString.isEmpty()) {
                     List<String> ingredients = Arrays.asList(ingredientsString.split(","));
                     menuItem.setIngredients(ingredients);
@@ -180,20 +171,27 @@ public class MenuService {
         } else {
             System.out.println("Item not found in the menu.");
         }
+
     }
 
-    static void displayMenu() {
+    public void displayMenu() {
         if (menuItems.isEmpty()) {
             System.out.println("Menu is empty.");
         } else {
             System.out.println("Menu:");
-            for (MenuItem menuItem : menuItems) {
+            Iterator var1 = menuItems.iterator();
+
+            while(var1.hasNext()) {
+                MenuItem menuItem = (MenuItem)var1.next();
                 System.out.println("\nName: " + menuItem.getName());
                 System.out.println("Description: " + menuItem.getDescription());
-                System.out.println("Preparation Time: " + menuItem.getPrepTime());
                 System.out.println("Price: " + menuItem.getPrice());
-                System.out.println("Ingredients: " + String.join(", ", menuItem.getIngredients()));
             }
         }
+
+    }
+
+    public List<MenuItem> getMenuItems() {
+        return menuItems;
     }
 }
