@@ -25,6 +25,10 @@ public class InventoryService {
         saveInventory(); // Save inventory to file after modification
     }
 
+    public Map<String, InventoryItem> getInventory() {
+        return inventory;
+    }
+
     // Use an ingredient from the inventory
     public void useIngredient(String name, int quantity) {
         InventoryItem item = inventory.get(name);
