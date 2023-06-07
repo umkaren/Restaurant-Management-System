@@ -15,7 +15,7 @@ public class OrderService {
         orders = new ArrayList<>();
     }
 
-    public void placeOrder(Order order) {
+    public static void placeOrder(Order order) {
         orders.add(order);
         System.out.println("Order ID: " + order.getOrderID() + " placed.");
     }

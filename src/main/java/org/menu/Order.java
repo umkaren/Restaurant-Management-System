@@ -3,24 +3,12 @@ package org.menu;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 //Represents an individual order
 public class Order {
-
-    //Name and prices of items declared as constants
-    private static final String CHICKEN_TENDERS = "Chicken Tenders";
-    private static final String CHICKEN_SANDWICH = "Chicken Sandwich";
-    private static final String GRILLED_CHEESE = "Grilled Cheese";
-    private static final String FRIES = "Fries";
-    private static final String BOTTLE_WATER = "Bottle Water";
-    private static final String SODA = "Soda";
-
-    private static final double PRICE_CHICKEN_TENDERS = 5.0;
-    private static final double PRICE_CHICKEN_SANDWICH = 6.0;
-    private static final double PRICE_GRILLED_CHEESE = 6.0;
-    private static final double PRICE_FRIES = 2.0;
-    private static final double PRICE_BOTTLE_WATER = 1.0;
-    private static final double PRICE_SODA = 1.0;
 
     private int orderID;
     private Map<String, Integer> itemsOrdered;//Stores items and amounts
@@ -83,14 +71,24 @@ public class Order {
     //Method creates and returns item prices
     private static Map<String, Double> createItemPrices() {
         Map<String, Double> prices = new HashMap<>();
-        prices.put(CHICKEN_TENDERS, PRICE_CHICKEN_TENDERS);
-        prices.put(CHICKEN_SANDWICH, PRICE_CHICKEN_SANDWICH);
-        prices.put(GRILLED_CHEESE, PRICE_GRILLED_CHEESE);
-        prices.put(FRIES, PRICE_FRIES);
-        prices.put(BOTTLE_WATER, PRICE_BOTTLE_WATER);
-        prices.put(SODA, PRICE_SODA);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("/Users/minhsmair/IdeaProjects/Restaurant-Management-System/src/main/java/org/menu/menu.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    String itemName = parts[0].trim();
+                    double itemPrice = Double.parseDouble(parts[1].trim());
+                    prices.put(itemName, itemPrice);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return prices;
     }
+
     // Method to retrieve the price of an item
     public static double getItemPrice(String itemName) {
         if (itemPrices.containsKey(itemName)) {
