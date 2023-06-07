@@ -8,10 +8,21 @@ public class MenuItem {
     private static List<MenuItem> menuItems = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
     private String MENU_FILE;
+    private String name;
+    private String description;
+    private double price;
+    private int prepTime;
+    private List<String> ingredients;
 
-    public Menu() {
+    public MenuItem(String MENU_FILE, String name, String description, int prepTime, double price, List<String> ingredients) {
         this.MENU_FILE = "/Users/minhsmair/TestingRestaurant/TestingRestaurant/src/main/java/example/menu.txt";
+        this.name = name;
+        this.description = description;
+        this.prepTime = prepTime;
+        this.price = price;
+        this.ingredients = ingredients;
     }
+
 
     public List<MenuItem> loadMenu() {
         try {
@@ -173,7 +184,45 @@ public class MenuItem {
         }
     }
 
-    public List<MenuItem> getMenuItems() {
-        return menuItems;
+    // Getters and Setters
+    public String getName() {
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription() {
+        this.description = description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice () {
+        this.price = price;
+    }
+
+    public int getPrepTime() {
+        return prepTime;
+    }
+
+    public void setPrepTime(int prepTime) {
+        this.prepTime = prepTime;
+    }
+
+    public List<String> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<String> ingredients) {
+        this.ingredients = ingredients;
+    }
+
 }

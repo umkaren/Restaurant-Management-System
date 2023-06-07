@@ -8,14 +8,14 @@ import java.util.Map;
 public class OrderService {
 
     //Method - returns order with by orderID orders
-    private List<Order> orders;
+    private static List<Order> orders;
 
     //Constructor that initializes 'orders' list as an empty array
     public OrderService () {
         orders = new ArrayList<>();
     }
 
-    public static void placeOrder(Order order) {
+    public void placeOrder(Order order) {
         orders.add(order);
         System.out.println("Order ID: " + order.getOrderID() + " placed.");
     }

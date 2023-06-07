@@ -22,6 +22,7 @@ public class MenuService {
     Scanner scanner;
     private String MENU_FILE;
 
+
     public MenuService() {
         this.scanner = new Scanner(System.in);
         this.MENU_FILE = "/Users/minhsmair/TestingRestaurant/TestingRestaurant/src/main/java/example/menu.txt";
@@ -35,7 +36,7 @@ public class MenuService {
                 menuItems.clear();
 
                 String line;
-                while((line = reader.readLine()) != null) {
+                while ((line = reader.readLine()) != null) {
                     MenuItem menuItem = MenuItem.fromStringWithDelimiters(line);
                     menuItems.add(menuItem);
                 }
@@ -54,8 +55,8 @@ public class MenuService {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.MENU_FILE));
 
-            for(int i = 0; i < menuItems.size(); ++i) {
-                MenuItem menuItem = (MenuItem)menuItems.get(i);
+            for (int i = 0; i < menuItems.size(); ++i) {
+                MenuItem menuItem = (MenuItem) menuItems.get(i);
                 String line = i + 1 + ". " + menuItem.toStringWithDelimiters();
                 writer.write(line);
                 writer.newLine();
@@ -82,7 +83,7 @@ public class MenuService {
         System.out.print("Ingredients (comma-separated): ");
         String ingredientsString = this.scanner.nextLine();
         List<String> ingredients = Arrays.asList(ingredientsString.split(","));
-        MenuItem menuItem = new MenuItem(name, description, prepTime, price, ingredients);
+        MenuItem menuItem = new MenuItem(Mname, description, prepTime, price, ingredients);
         menuItems.add(menuItem);
         System.out.println("Menu item added successfully!");
     }
@@ -93,8 +94,8 @@ public class MenuService {
         boolean found = false;
         Iterator<MenuItem> iterator = menuItems.iterator();
 
-        while(iterator.hasNext()) {
-            MenuItem menuItem = (MenuItem)iterator.next();
+        while (iterator.hasNext()) {
+            MenuItem menuItem = (MenuItem) iterator.next();
             if (menuItem.getName().equalsIgnoreCase(itemName)) {
                 iterator.remove();
                 found = true;
@@ -116,8 +117,8 @@ public class MenuService {
         boolean found = false;
         Iterator var3 = menuItems.iterator();
 
-        while(var3.hasNext()) {
-            MenuItem menuItem = (MenuItem)var3.next();
+        while (var3.hasNext()) {
+            MenuItem menuItem = (MenuItem) var3.next();
             if (menuItem.getName().equalsIgnoreCase(itemName)) {
                 System.out.println("Enter new values (leave blank to keep the current value):");
                 System.out.print("New name (" + menuItem.getName() + "): ");
@@ -181,8 +182,8 @@ public class MenuService {
             System.out.println("Menu:");
             Iterator var1 = menuItems.iterator();
 
-            while(var1.hasNext()) {
-                MenuItem menuItem = (MenuItem)var1.next();
+            while (var1.hasNext()) {
+                MenuItem menuItem = (MenuItem) var1.next();
                 System.out.println("\nName: " + menuItem.getName());
                 System.out.println("Description: " + menuItem.getDescription());
                 System.out.println("Price: " + menuItem.getPrice());
@@ -191,7 +192,13 @@ public class MenuService {
 
     }
 
-    public List<MenuItem> getMenuItems() {
-        return menuItems;
-    }
+
+//
+//    public List<MenuItem> getMenuItems() {
+//        return menuItems;
+//    }
+//
+//    public void setMenuItems(List<MenuItem> menuItems) {
+//        this.menuItems = menuItems;
+//    }
 }

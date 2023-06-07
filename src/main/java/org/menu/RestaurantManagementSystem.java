@@ -141,6 +141,8 @@ public class RestaurantManagementSystem {
                     System.out.println("Welcome, Staff!");
 
                     TableManager tableManager = new TableManager();
+                    MenuItem menu = new MenuItem();
+                    menuService.loadMenu();
                     //  MenuService menuService = new MenuService();
                     //menuService.loadMenuItems();
 
@@ -159,11 +161,12 @@ public class RestaurantManagementSystem {
                         choice = scanner.nextInt();
                         scanner.nextLine(); // Consume the newline character
 
-
+                        OrderService orderService = new OrderService();
 
                         switch (choice) {
                             case 1:
                                 // Take order
+                                orderService.placeOrder();
                                 // ...
                                 break;
                             case 2:
@@ -235,7 +238,7 @@ public class RestaurantManagementSystem {
                             default:
                                 System.out.println("Invalid choice. Please try again.");
                         }
-                    }while (loggedIn && !exitProgram && choice != 0 && choice != 6);
+                    } while (loggedIn && !exitProgram && choice != 0 && choice != 6);
                 }
             } else {
                 System.out.println("Invalid username or password. Exiting...");
@@ -243,73 +246,71 @@ public class RestaurantManagementSystem {
         }
 
 
+        TableManager tableManager = new TableManager();
+
+        // Add tables
+        Table table1 = new Table(1, 2, "Available");
+        Table table2 = new Table(2, 2, "Available");
+        Table table3 = new Table(3, 2, "Available");
+        Table table4 = new Table(4, 4, "Available");
+        Table table5 = new Table(5, 4, "Available");
+
+        tableManager.addTable(table1);
+        tableManager.addTable(table2);
+        tableManager.addTable(table3);
+        tableManager.addTable(table4);
+        tableManager.addTable(table5);
+
+
+        InventoryService inventoryService = new InventoryService("/Users/minhsmair/IdeaProjects/Restaurant-Management-System/src/main/java/org/menu");
+
+
+        // Checking the inventory status
+        inventoryService.checkInventoryStatus();
+
+        // Check ingredient quantity
+
+        inventoryService.checkIngredientQuantity("Tomato");
+        inventoryService.checkIngredientQuantity("Onion");
+
+        // Use ingredient
+        System.out.println("Order of fries is being prepared.");
+        inventoryService.checkIngredientQuantity("Potatoes");
+        inventoryService.useIngredient("Potatoes", 2);
+        inventoryService.checkIngredientQuantity("Potatoes");
+
+        // Use ingredient
+        System.out.println("Order of chicken tenders is being prepared.");
+        inventoryService.checkIngredientQuantity("Chicken tenders");
+        inventoryService.useIngredient("Chicken tenders", 5);
+        inventoryService.useIngredient("Oil", 2);
+
+        // Checking the inventory status
+        inventoryService.checkInventoryStatus();
     }
 
+    // Creating an instance of OrderService
+    OrderService orderService = new OrderService();
 
-                TableManager tableManager = new TableManager();
-
-                // Add tables
-                Table table1 = new Table(1, 2, "Available");
-                Table table2 = new Table(2, 2, "Available");
-                Table table3 = new Table(3, 2, "Available");
-                Table table4 = new Table(4, 4, "Available");
-                Table table5 = new Table(5, 4, "Available");
-
-                tableManager.addTable(table1);
-                tableManager.addTable(table2);
-                tableManager.addTable(table3);
-                tableManager.addTable(table4);
-                tableManager.addTable(table5);
+    //Creates from Order and names it order1
+    Order order1 = new Order(1, createItemsOrdered1(), 21, "Preparing");
+    orderService.placeOrder(order1);//Places actual order
+    Order order2 = new Order(2, createItemsOrdered2(), 11, "Waiting");
+    orderService.placeOrder(order2);
 
 
-                InventoryService inventoryService = new InventoryService("/Users/minhsmair/IdeaProjects/Restaurant-Management-System/src/main/java/org/menu");
+    //Updates order status
+    orderService.updateOrderStatus(1,"Preparing");
+    orderService.updateOrderStatus(2,"Waiting");
 
-
-                // Checking the inventory status
-                inventoryService.checkInventoryStatus();
-
-                // Check ingredient quantity
-
-                inventoryService.checkIngredientQuantity("Tomato");
-                inventoryService.checkIngredientQuantity("Onion");
-
-                // Use ingredient
-                System.out.println("Order of fries is being prepared.");
-                inventoryService.checkIngredientQuantity("Potatoes");
-                inventoryService.useIngredient("Potatoes", 2);
-                inventoryService.checkIngredientQuantity("Potatoes");
-
-                // Use ingredient
-                System.out.println("Order of chicken tenders is being prepared.");
-                inventoryService.checkIngredientQuantity("Chicken tenders");
-                inventoryService.useIngredient("Chicken tenders", 5);
-                inventoryService.useIngredient("Oil", 2);
-
-                // Checking the inventory status
-                inventoryService.checkInventoryStatus();
-            }
-        }
-
-        // Creating an instance of OrderService
-        OrderService orderService = new OrderService();
-
-        //Creates from Order and names it order1
-        Order order1 = new Order(1, createItemsOrdered1(), 21, "Preparing");
-        orderService.placeOrder(order1);//Places actual order
-
-        Order order2 = new Order(2, createItemsOrdered2(), 11, "Waiting");
-        orderService.placeOrder(order2);
-
-        //Updates order status
-        orderService.updateOrderStatus(1, "Preparing");
-        orderService.updateOrderStatus(2, "Waiting");
-
-        List<Order> allOrders = orderService.getAllOrders();
+    List<Order> allOrders = orderService.getAllOrders();
         System.out.println("All Orders:");
-        for (Order order : allOrders) {
-            System.out.println("Order ID: " + order.getOrderID() + ", Status: " + order.getOrderStatus());
-        }
+
+        for (Order order : allOrders)
+        System.out.println("Order ID: " + order.getOrderID() + ", Status: " + order.getOrderStatus());
     }
+
+
 
     private static Map<String, Integer> createItemsOrdered1() {
         Map<String, Integer> itemsOrdered = new HashMap<>();
@@ -324,8 +325,6 @@ public class RestaurantManagementSystem {
         itemsOrdered.put("Item4", 1);
         return itemsOrdered;
     }
-
-
 }
 
 
